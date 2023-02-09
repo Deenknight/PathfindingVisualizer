@@ -1,0 +1,30 @@
+
+
+# dependencies
+pathfinding-visualizer/node_modules/
+.pnp
+.pnp.js
+
+# testing
+pathfinding-visualizer/coverage
+
+# production
+pathfinding-visualizer/build
+
+# learning
+pathfinding-visualizer/src/learning_component
+
+# misc
+.vscode
+
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+/pathfinding-visualizer/npm-debug.log*
+/pathfinding-visualizer/yarn-debug.log*
+/pathfinding-visualizer/yarn-error.log*
+
+
