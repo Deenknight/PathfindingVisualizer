@@ -1,6 +1,8 @@
 
 
 # dependencies
+.gitignore
+pathFinderVisualizer
 pathfinding-visualizer/node_modules/
 .pnp
 .pnp.js
@@ -16,6 +18,7 @@ pathfinding-visualizer/src/learning_component
 
 # misc
 .vscode
+node_modules
 
 .DS_Store
 .env.local
