@@ -324,20 +324,21 @@ export default class PathfindingVisualizer extends Component {
       const finishNode =
         grid[this.state.FINISH_NODE_ROW][this.state.FINISH_NODE_COL];
       let visitedNodesInOrder;
+      let foundPath;
 
       switch (algo) {
         case 'Dijkstra':
-          visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
+          [visitedNodesInOrder, foundPath] = dijkstra(grid, startNode, finishNode);
           break;
         case 'AStar':
-          visitedNodesInOrder = AStar(grid, startNode, finishNode);
+          [visitedNodesInOrder, foundPath] = AStar(grid, startNode, finishNode);
           break;
         case 'BFS':
-          visitedNodesInOrder = bfs(grid, startNode, finishNode);
+          [visitedNodesInOrder, foundPath] = bfs(grid, startNode, finishNode);
           console.log(bfs(grid, startNode, finishNode))
           break;
         case 'DFS':
-          visitedNodesInOrder = dfs(grid, startNode, finishNode);
+          [visitedNodesInOrder, foundPath] = dfs(grid, startNode, finishNode);
           break;
         default:
           // should never get here
@@ -345,16 +346,23 @@ export default class PathfindingVisualizer extends Component {
       }
       const nodesInShortestPathOrder = getNodesInShortestPathOrder(finishNode);
       nodesInShortestPathOrder.push('end');
-      this.animate(visitedNodesInOrder, nodesInShortestPathOrder);
+      this.animate(visitedNodesInOrder, nodesInShortestPathOrder, foundPath);
     }
   }
 
-  animate(visitedNodesInOrder, nodesInShortestPathOrder) {
+  animate(visitedNodesInOrder, nodesInShortestPathOrder, foundPath) {
     for (let i = 0; i <= visitedNodesInOrder.length; i++) {
       if (i === visitedNodesInOrder.length) {
-        setTimeout(() => {
-          this.animateShortestPath(nodesInShortestPathOrder);
-        }, 10 * i);
+        if (foundPath){
+          setTimeout(() => {
+            this.animateShortestPath(nodesInShortestPathOrder);
+          }, 10 * i);
+        } else{
+          setTimeout(() => {
+            this.toggleIsRunning();
+          }, 10 * i);
+        }
+        
         return;
       }
       setTimeout(() => {
