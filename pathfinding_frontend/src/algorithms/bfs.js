@@ -6,8 +6,11 @@ export function bfs(grid, startNode, finishNode) {
   const visitedNodesInOrder = [];
   let nextNodesStack = [startNode];
   while (nextNodesStack.length) {
+    
     const currentNode = nextNodesStack.shift();
-    if (currentNode === finishNode) return visitedNodesInOrder;
+    if (currentNode === finishNode){
+      return visitedNodesInOrder;
+    } 
 
     if (
       !currentNode.isWall &&
@@ -47,5 +50,5 @@ export function bfs(grid, startNode, finishNode) {
       }
     }
   }
-  // return visitedNodesInOrder;
+  return visitedNodesInOrder;
 }

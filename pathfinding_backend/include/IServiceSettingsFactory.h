@@ -6,10 +6,10 @@
 using namespace std;
 using namespace restbed;
 
-class IResourceFactory {
+class IServiceSettingsFactory {
 
 public:
+    virtual shared_ptr<Settings> get_settings() const = 0;
 
-    virtual shared_ptr<Resource> get_resource() const = 0;
-
+    
 };
