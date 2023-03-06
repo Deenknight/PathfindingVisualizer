@@ -10,7 +10,7 @@ export function dfs(grid, startNode, finishNode) {
     const currentNode = nextNodesStack.pop();
 
     if (currentNode === finishNode) {
-      return visitedNodesInOrder;
+      return [visitedNodesInOrder, true];
     }
 
     if (
@@ -52,5 +52,5 @@ export function dfs(grid, startNode, finishNode) {
       }
     }
   }
-  return visitedNodesInOrder;
+  return [visitedNodesInOrder, false];
 }

@@ -9,7 +9,7 @@ export function bfs(grid, startNode, finishNode) {
     
     const currentNode = nextNodesStack.shift();
     if (currentNode === finishNode){
-      return visitedNodesInOrder;
+      return [visitedNodesInOrder, true];
     } 
 
     if (
@@ -50,5 +50,5 @@ export function bfs(grid, startNode, finishNode) {
       }
     }
   }
-  return visitedNodesInOrder;
+  return [visitedNodesInOrder, false];
 }
