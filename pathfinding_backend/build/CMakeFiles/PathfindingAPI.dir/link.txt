@@ -1,0 +1,1 @@
+/usr/bin/c++  -g  -rdynamic CMakeFiles/PathfindingAPI.dir/main.cpp.o CMakeFiles/PathfindingAPI.dir/PathfinderResourceFactory.cpp.o CMakeFiles/PathfindingAPI.dir/PathfinderService.cpp.o CMakeFiles/PathfindingAPI.dir/PathfinderServiceSettingsFactory.cpp.o  -o PathfindingAPI  -lrestbed 

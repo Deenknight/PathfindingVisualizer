@@ -17,8 +17,8 @@ export default class PathfindingVisualizer extends Component {
       START_NODE_COL: 5,
       FINISH_NODE_COL: 15,
       mouseIsPressed: false,
-      ROW_COUNT: 25,
-      COLUMN_COUNT: 35,
+      ROW_COUNT: 16,
+      COLUMN_COUNT: 16,
       MOBILE_ROW_COUNT: 10,
       MOBILE_COLUMN_COUNT: 20,
       isRunning: false,
@@ -114,6 +114,7 @@ export default class PathfindingVisualizer extends Component {
   /******************** Control mouse events ********************/
   handleMouseDown(row, col) {
     if (!this.state.isRunning) {
+      console.log("mousedown")
       if (this.isGridClear()) {
         if (
           document.getElementById(`node-${row}-${col}`).className ===
@@ -136,7 +137,9 @@ export default class PathfindingVisualizer extends Component {
             currCol: col,
           });
         } else {
+          console.log("setstate")
           const newGrid = getNewGridWithWallToggled(this.state.grid, row, col);
+          console.log("inMouseDown: ", newGrid);
           this.setState({
             grid: newGrid,
             mouseIsPressed: true,
@@ -146,6 +149,7 @@ export default class PathfindingVisualizer extends Component {
           });
         }
       } else {
+        console.log("cleared")
         this.clearGrid();
       }
     }
@@ -320,6 +324,7 @@ export default class PathfindingVisualizer extends Component {
       const finishNode =
         grid[this.state.FINISH_NODE_ROW][this.state.FINISH_NODE_COL];
       let visitedNodesInOrder;
+
       switch (algo) {
         case 'Dijkstra':
           visitedNodesInOrder = dijkstra(grid, startNode, finishNode);
@@ -329,6 +334,7 @@ export default class PathfindingVisualizer extends Component {
           break;
         case 'BFS':
           visitedNodesInOrder = bfs(grid, startNode, finishNode);
+          console.log(bfs(grid, startNode, finishNode))
           break;
         case 'DFS':
           visitedNodesInOrder = dfs(grid, startNode, finishNode);
@@ -391,6 +397,43 @@ export default class PathfindingVisualizer extends Component {
       }
     }
   }
+
+  createMaze(walls){
+    
+    let index = 0
+    const newGrid = this.state.grid.slice();
+
+    for (const row of newGrid){
+      for (const node of row){
+        
+        if (walls[index] == 0){
+          node.isWall = false;
+        } else {
+          node.isWall = true;
+        }
+        index++;
+      }
+    }
+
+    this.setState({grid: newGrid})
+
+    };
+  
+
+  mazeGenerateHandler(){
+    if (!this.state.isRunning) {
+      this.clearGrid()
+
+      this.props.pathfindingAPI.runMazeGenerator(
+        this.state.START_NODE_ROW*this.state.COLUMN_COUNT+this.state.START_NODE_COL, 
+        this.state.FINISH_NODE_ROW*this.state.COLUMN_COUNT+this.state.FINISH_NODE_COL, 
+        this.state.ROW_COUNT, this.state.COLUMN_COUNT, 
+        (walls) => {this.createMaze(JSON.parse(walls));}
+      );
+
+    }
+  };
+  
 
   render() {
     const {grid, mouseIsPressed} = this.state;
@@ -462,13 +505,19 @@ export default class PathfindingVisualizer extends Component {
           type="button"
           className="btn btn-primary"
           onClick={() => this.visualize('BFS')}>
-          Bread First Search
+          Breadth First Search
         </button>
         <button
           type="button"
           className="btn btn-primary"
           onClick={() => this.visualize('DFS')}>
           Depth First Search
+        </button>
+        <button
+          type="button"
+          className="btn btn-primary"
+          onClick={() => this.mazeGenerateHandler()}>
+          Generate Maze
         </button>
         {this.state.isDesktopView ? (
           <button

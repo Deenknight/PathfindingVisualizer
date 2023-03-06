@@ -1,21 +1,22 @@
 
 
 # dependencies
-pathfinding-visualizer/node_modules/
+.gitignore
 .pnp
 .pnp.js
 
 # testing
-pathfinding-visualizer/coverage
+pathfinding_frontend/coverage
 
 # production
-pathfinding-visualizer/build
+pathfinding_frontend/build
 
 # learning
-pathfinding-visualizer/src/learning_component
+pathfinding_frontend/src/learning_component
 
 # misc
 .vscode
+node_modules
 
 .DS_Store
 .env.local
@@ -23,8 +24,8 @@ pathfinding-visualizer/src/learning_component
 .env.test.local
 .env.production.local
 
-/pathfinding-visualizer/npm-debug.log*
-/pathfinding-visualizer/yarn-debug.log*
-/pathfinding-visualizer/yarn-error.log*
+/pathfinding_frontend/npm-debug.log*
+/pathfinding_frontend/yarn-debug.log*
+/pathfinding_frontend/yarn-error.log*
 
 
